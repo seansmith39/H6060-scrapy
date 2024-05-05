@@ -58,6 +58,18 @@ jobs:
           name: python-dependency-tree
           path: python_dep_tree.json
 
+      - name: Create requirements.txt
+        shell: bash
+        run: |
+          pip install pipreqs
+          pipreqs
+
+      - name: Upload Python Requirements File
+        uses: actions/upload-artifact@v4
+        with:
+          name: python-requirements
+          path: requirements.txt
+
       - name: Run Python Tests
         shell: bash
         run: tox
@@ -83,16 +95,17 @@ jobs:
     uses: seansmith39/H6060-Experiment-Workflows/.github/workflows/experiment_sbom_generation_python.yml@Optional_Requirements_Installation
     secrets: inherit
     with:
-      create-requirements-files: true
+      download-requirements-file: true
 
-#  run_sca_scanning:
-#    needs: [ build_application ]
-#    name: Run SCA Scanning Workflow
-#    uses: seansmith39/H6060-Experiment-Workflows/.github/workflows/experiment_1_sca_python.yml@Optional_Requirements_Installation
-#    secrets: inherit
-#    with:
-#      python-artifact-name: scrapy
-#      python-source-dir: scrapy
+  run_sca_scanning:
+    needs: [ build_application ]
+    name: Run SCA Scanning Workflow
+    uses: seansmith39/H6060-Experiment-Workflows/.github/workflows/experiment_1_sca_python.yml@Optional_Requirements_Installation
+    secrets: inherit
+    with:
+      python-artifact-name: scrapy
+      python-source-dir: scrapy
+      snyk-file-to-scan: requirements.txt
 
   run_sast_scanning:
     needs: [ build_application ]
