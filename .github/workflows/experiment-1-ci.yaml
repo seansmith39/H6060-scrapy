@@ -93,9 +93,9 @@ jobs:
 #    with:
 #      python-artifact-name: scrapy
 #      python-source-dir: scrapy
-#
-#  run_sast_scanning:
-#    needs: [ build_application ]
-#    name: Run SCA Scanning Workflow
-#    uses: seansmith39/H6060-Experiment-Workflows/.github/workflows/experiment_1_sast_python.yml@Optional_Requirements_Installation
-#    secrets: inherit
+
+  run_sast_scanning:
+    needs: [ build_application ]
+    name: Run SAST Scanning Workflow
+    uses: seansmith39/H6060-Experiment-Workflows/.github/workflows/experiment_1_sast_python.yml@Optional_Requirements_Installation
+    secrets: inherit
