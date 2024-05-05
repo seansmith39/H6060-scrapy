@@ -77,12 +77,14 @@ jobs:
             coverage.json
             coverage.xml
 
-#  create_sbom:
-#    needs: [ build_application ]
-#    name: Run SBOM Generation
-#    uses: seansmith39/H6060-Experiment-Workflows/.github/workflows/experiment_sbom_generation_python.yml@Optional_Requirements_Installation
-#    secrets: inherit
-#
+  create_sbom:
+    needs: [ build_application ]
+    name: Run SBOM Generation
+    uses: seansmith39/H6060-Experiment-Workflows/.github/workflows/experiment_sbom_generation_python.yml@Optional_Requirements_Installation
+    secrets: inherit
+    with:
+      create-requirements-files: true
+
 #  run_sca_scanning:
 #    needs: [ build_application ]
 #    name: Run SCA Scanning Workflow
